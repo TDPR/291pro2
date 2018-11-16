@@ -1,3 +1,5 @@
+#TODO phase1 and 2 don't need menus and can just be scripts
+
 def mainMenu():
     print('Control the menu using numbers')
     print('1. Prepare Data Files')

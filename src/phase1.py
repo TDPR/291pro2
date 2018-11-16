@@ -1,25 +1,10 @@
-#Preparing Data Files
+import sys
+import re
 
-from bsddb3 import db
+fileName = open(str(sys.argv[1]),'r')
 
-def phase1Menu():
-    print('Control the menu using numbers')
-    print('1. Insert Data Files')
-    print('2. Return to the main menu')
-    res=input()
+fileData = [line.rstrip('\n') for line in fileName]
 
-    if res == '1':
-        dataInput()
-    
-    elif res == '2':
-        print('\n')
-        from index import mainMenu
-        mainMenu()
-    
-    else:
-        print('\nInvalid Input')
-        phase1Menu()
-
-
-def dataInput():
-    print('Hello World')
+for line in fileData:
+    if line.startswith('<ad>'):
+        print(line+'\n')
