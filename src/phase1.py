@@ -12,19 +12,14 @@ for line in fileData:
         lineData = ET.fromstring(line)
         
         #terms parsing
-        termsData = lineData[4].text + ' ' +  lineData[5].text
-        
         #splits all words that are allowed and removes unneeded characters
-        termsData = re.findall(r"([a-zA-Z0-9-_]+)", termsData)
-        terms =[]
-
-        for word in termsData:
-            if len(word) > 2:
-                terms.append(':'.join([word.lower(),lineData[0].text]))
+        terms = lineData[4].text + ' ' +  lineData[5].text
+        terms = re.findall(r"([a-zA-Z0-9-_]+)", terms)
 
         with open('terms.txt', 'a') as termsFile:
             for word in terms:
-                termsFile.write(word + '\n')
+                if len(word) > 2:
+                    termsFile.write(':'.join([word.lower(),lineData[0].text]) + '\n')
         
         #pdates parsing
         if lineData[1].text:
