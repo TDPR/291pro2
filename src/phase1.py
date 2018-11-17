@@ -10,24 +10,12 @@ for line in fileData:
     if line.startswith('<ad>'):
         lineData = ET.fromstring(line)
 
+        termsData = lineData[4].text + lineData[5].text
 
-        stripTi = ""
-        for ch in lineData[4].text:
-            if re.match(r'([0-9a-zA-Z_-])+', ch):
-                stripTi += ch
-            else:
-                stripTi += ' '
+        #splits all words that are allowed and removes unneeded characters
+        termsData = re.findall(r"([a-zA-Z0-9-_]+)", termsData)
+        terms =[]
 
-        stripTerms = ""
-        for ch in lineData[5].text:
-            if re.match(r'([0-9a-zA-Z_-])+', ch):
-                stripTerms += ch
-            else:
-                stripTerms += ' '
-
-        termsData = stripTi.split()
-        termsData.extend(stripTerms.split())
-        terms=[]
         for word in termsData:
             if len(word) > 2:
                 terms.append(':'.join([word.lower(),lineData[0].text]))
