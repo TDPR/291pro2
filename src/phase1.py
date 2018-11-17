@@ -12,7 +12,7 @@ for line in fileData:
         lineData = ET.fromstring(line)
         
         #terms parsing
-        termsData = lineData[4].text + lineData[5].text
+        termsData = lineData[4].text + ' ' +  lineData[5].text
         
         #splits all words that are allowed and removes unneeded characters
         termsData = re.findall(r"([a-zA-Z0-9-_]+)", termsData)
