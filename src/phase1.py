@@ -30,6 +30,7 @@ for line in fileData:
         
         #prices parcing
         if lineData[6].text:
+            #add the digits backwards into a string of spaces
             prices = '           '
             for i in lineData[6].text[::-1]:
                 head, middle, tail = prices.rpartition(' ')
