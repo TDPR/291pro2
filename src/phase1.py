@@ -30,7 +30,12 @@ for line in fileData:
         
         #prices parcing
         if lineData[6].text:
-            prices = ':'.join([lineData[6].text,lineData[0].text]) + ',' + lineData[3].text + ',' + lineData[2].text
+            prices = '           '
+            for i in lineData[6].text[::-1]:
+                head, middle, tail = prices.rpartition(' ')
+                prices = head + i + tail
+            
+            prices = ':'.join([prices,lineData[0].text]) + ',' + lineData[3].text + ',' + lineData[2].text
             
             with open('prices.txt', 'a') as pricesFile:
                 pricesFile.write(prices + '\n')
