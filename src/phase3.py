@@ -1,12 +1,17 @@
 import re
+outputBrief = True
 
 def mainMenu():
     print('Type a proper search query')
+    print('Type output=brief or output=full to change output type')
     print('Or type !exit to exit')
     res=input()
 
-    if res:
-        parser(inputParser(res))
+    if res.startswith('output=') or res.startswith('output ='):
+        print('Hello')
+    
+    elif res:
+        parser(inputParser(res))   
 
     elif res == '!exit':
         print('\nGoodbye')
