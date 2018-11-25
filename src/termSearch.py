@@ -1,4 +1,5 @@
 # takes input of a list of length 1, or length 2 if modulo
+import re
 
 def termSearch(keyword):
     #open the data bases we will use
@@ -10,7 +11,7 @@ def termSearch(keyword):
     # working lists
     outputList = []
     idList = []
-    
+
     # index 0 is reserved for the keyword
     # index 1 is reserved for modulo, if it exists
     if len(keyword) == 1:
@@ -31,6 +32,7 @@ def termSearch(keyword):
         iter =cur.first()
         while iter:
             key = iter[0].decode()
+            key = key+'*'
             if re.search(keyword, key):
                 idList.append(iter[1])
             iter = cur.next()
