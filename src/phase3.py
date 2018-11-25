@@ -19,7 +19,13 @@ def parser(res):
     res = res.split()
     i=0
     data=[]
-    while i < len(res)-1:
+    while i < len(res):
+        #if it's the last term
+        if i == len(res)-1:
+            data.append(res[i])     
+            i+=1
+            continue
+
         #word doesn't contain <=> characters
         if not re.search(r'[<=>]+', res[i]):
             #peek if next item starts with a symbol
