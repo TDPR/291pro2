@@ -6,7 +6,7 @@ def mainMenu():
     res=input()
 
     if res:
-        parser(res)
+        parser(inputParser(res))
 
     elif res == '!exit':
         print('\nGoodbye')
@@ -15,7 +15,8 @@ def mainMenu():
         print('\nInvalid Input')
         mainMenu()
 
-def parser(res):
+def inputParser(res):
+    #splits and groups them to remove spaces
     res = res.split()
     i=0
     data=[]
@@ -51,6 +52,26 @@ def parser(res):
         data.append(res[i])     
         i+=1
 
-    print(data)
+    return data
+
+def parser(data):
+    #parsing after spaces are removed
+    queries=[]
+    for query in data:
+        #if they have sympbols
+        if re.search(r'[<=>]+', query):
+            queries.append(re.split(r'([<=>]+)', query))
+             
+        #if they have %
+        elif re.search(r'[%]+$', query):
+            l=re.split(r'([%]+)$', query)
+            l.pop()
+            queries.append(l)
+        
+        else:
+            queries.append([query])
+
+    print(queries)
+
 
 mainMenu()
