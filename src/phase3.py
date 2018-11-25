@@ -1,46 +1,50 @@
-from bsddb3 import db
-import sys
 import re
 
-termsDB = db.DB()
-pdatesDB = db.DB()
-pricesDB = db.DB()
-adsDB = db.DB()
-termsDB.set_flags(db.DB_DUP)
-pdatesDB = set_flags(db.DB_DUP)
-prices = db.DB()
-adsDB = db.DB()
-termsDB.open('te.idx', None, db.DB_BTREE)
-pdatesDB.open('da.idx', None, db.DB_BTREE)
-pricesDB.open('pr.idx', None, db.DB_TREE)
-adsDB.open('ad.idx', None, db.DB_HASH)
-termsCur = termsDB.cursor()
-pdatesCur = pdatesDB.cursor()
-pricesCur = pricesDB.cursor()
-adsCur = adsDB.cursor()
+def mainMenu():
+    print('Type a proper search query')
+    print('Or type !exit to exit')
+    res=input()
 
-equalityCheck = '='
-rangeCheck = '[<=,>=,<,>]'
-wordCheck = '[0-9a-zA-Z_-]+'
-outputCheck = 'output='
-equiSearch = re.compile(equalityCheck)
-rangeSearch = re.compile(rangeCheck)
-wordSearch = re.compile(wordCheck)
-outputSearch = re.compile(outputCheck)
-output = 0
+    if res:
+        parser(res)
 
-def outputSet():
+    elif res == '!exit':
+        print('\nGoodbye')
+        exit()
+    else:
+        print('\nInvalid Input')
+        mainMenu()
 
-def generalCheck():
+def parser(res):
+    res = res.split()
+    i=0
+    data=[]
+    while i < len(res)-1:
+        #word doesn't contain <=> characters
+        if not re.search(r'[<=>]+', res[i]):
+            #peek if next item starts with a symbol
+            if re.match(r'^[<=>]+', res[i+1]):
+                #if it's only symbol
+                if re.fullmatch(r'[<=>]+', res[i+1]):
+                    data.append(res[i] + res[i+1] + res[i+2])
+                    i+=3
+                    continue
+                
+                #if it has words
+                elif re.search(r'[\w]+',res[i+1]):
+                    data.append(res[i] + res[i+1])
+                    i+=2
+                    continue
+            
+        #if res ends with a symbol
+        elif re.search(r'[<=>]+$', res[i]):
+            data.append(res[i] + res[i+1])
+            i+=2
+            continue
+            
+        data.append(res[i])     
+        i+=1
 
-def equalityCheck():
+    print(data)
 
-def rangeCheck():
-
-def queryCheck():
-
-def StdInCheck():
-    for each in sys.stdin:
-        word = False
-    
-
+mainMenu()
