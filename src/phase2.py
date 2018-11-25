@@ -2,10 +2,10 @@ import subprocess as sp
 import os
 
 # Unix command sort -u <filename> sorts the file and removes duplicates
-sp.call(['sort','-u','terms.txt'])
-sp.call(['sort','-u','pdates.txt'])
-sp.call(['sort','-u','prices.txt'])
-sp.call(['sort','-u','ads.txt'])
+sp.call(['sort','-u','terms.txt','-o','terms.txt'])
+sp.call(['sort','-u','pdates.txt','-o','pdates.txt'])
+sp.call(['sort','-u','prices.txt','-o','prices.txt'])
+sp.call(['sort','-u','ads.txt','-o','ads.txt'])
 
 #setting up each file for db_load, such that / are gone, key and data alternate lines
 filenames = ['terms.txt', 'pdates.txt','prices.txt','ads.txt']
