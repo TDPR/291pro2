@@ -1,22 +1,25 @@
 import re
+import xml.etree.ElementTree as ET
 outputBrief = True
 
 def mainMenu():
+    global outputBrief
+    print('Output Type: Brief' if outputBrief else 'Output Type: Full')
     print('Type a proper search query')
     print('Type output=brief or output=full to change output type')
     print('Or type !exit to exit')
     res=input()
 
     if res.startswith('output=') or res.startswith('output ='):
-        global outputBrief
-        print('outputBrief = ' + str(outputBrief))
         outputType=re.split(r'=', res.replace(' ', ''))
 
         if outputType[1].lower() == 'full':
             outputBrief = False
+            print('')
             mainMenu()
         elif outputType[1].lower() == 'brief':
             outputBrief = True
+            print('')
             mainMenu()
         else:
             print('\nInvalid Input type')
@@ -90,6 +93,32 @@ def parser(data):
             queries.append([query])
 
     print(queries)
+
+def queryPrinter(query):
+    global outputBrief
+    
+    #TODO REMOVE
+    query = ['1304786670', '<ad><aid>1304786670</aid><date>2018/11/07</date><loc>Calgary</loc><cat>cam5era-camcorder-lens</cat><ti>Nikon 500 mm F4 VR</ti><desc>I have owned this Nikon lens for about 2 years and purchased it new in Calgary. The lens is extremely sharp, and fast focusing. It is a wildlife or bird photographers dream lens. I am selling it</desc><price>8500</price></ad>']
+    
+    adQuery = ET.fromstring(query[1])
+
+    if outputBrief:
+        print('\nAD ID: ' + query[0])
+        print('Title: ' + adQuery[4].text + '\n')
+        
+
+    elif not outputBrief:
+        print('\nAD ID: ' + query[0])
+        print('Date: ' + adQuery[1].text)
+        print('Location: ' + adQuery[2].text)
+        print('Category: ' + adQuery[3].text)
+        print('Title: ' + adQuery[4].text)
+        print('Description: ' + adQuery[5].text)
+        print('Price: ' + adQuery[6].text + '\n')
+
+    else:
+        print('\nSomething Went Wrong')
+        mainMenu()
 
 
 mainMenu()
