@@ -8,14 +8,27 @@ def mainMenu():
     res=input()
 
     if res.startswith('output=') or res.startswith('output ='):
-        print('Hello')
+        global outputBrief
+        print('outputBrief = ' + str(outputBrief))
+        outputType=re.split(r'=', res.replace(' ', ''))
+
+        if outputType[1].lower() == 'full':
+            outputBrief = False
+            mainMenu()
+        elif outputType[1].lower() == 'brief':
+            outputBrief = True
+            mainMenu()
+        else:
+            print('\nInvalid Input type')
+            mainMenu()
+    
+    elif res == '!exit':
+        print('\nGoodbye')
+        exit()
     
     elif res:
         parser(inputParser(res))   
 
-    elif res == '!exit':
-        print('\nGoodbye')
-        exit()
     else:
         print('\nInvalid Input')
         mainMenu()
