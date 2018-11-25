@@ -5,9 +5,10 @@ def termSearch(keyword):
     #open the data bases we will use
     termsBase = db.DB()
     termsBase.open('terms.idx')
+    tcur = termsBase.cursor()
     adBase = db.DB()
     adBase.open('ads.idx')
-
+    acur = adBase.cursor()
     # working lists
     outputList = []
     idList = []
@@ -20,24 +21,24 @@ def termSearch(keyword):
         while iter:
             if iter[0] == keyword[0]:
                 idList.append(iter[1])
-            iter = cur.next()
+            iter = tcur.next()
         for id in idList:
-            ad = cur.get(id)
+            ad = acur.get(id)
             outputList.append(ad)
         termBase.close()
         adBase.close()
         return outputList
     
     elif len(keyword) == 2:
-        iter =cur.first()
+        iter = tcur.first()
         while iter:
             key = iter[0].decode()
             key = key+'*'
             if re.search(keyword, key):
                 idList.append(iter[1])
-            iter = cur.next()
+            iter = tcur.next()
         for id in idList:
-            ad = cur.get(id)
+            ad = acur.get(id)
             outputList.append(ad)
         termBase.close()
         adBase.close()
