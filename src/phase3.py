@@ -31,11 +31,15 @@ output = 0
 
 def outputSet():
 
-def generalCheck():
-
+def generalCheck(keyword):
+        #key word search in title and description
+        # find the key word in terms.idx, return all ad id, display all ads associated with ad ids
+        
 def equalityCheck():
+        #location and category search, exact matching to keyword
 
 def rangeCheck():
+        # price and data search, also includes equality
 
 def queryCheck():
 
