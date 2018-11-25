@@ -18,7 +18,6 @@ for name in filenames:
         temp.write(sline[1])
     fo.close()
     temp.close()
-    #Tname = 'T'+ name
     os.rename('temp.txt', name)
 
 # now using db_load for each file, assumes that Berkely db is installed
