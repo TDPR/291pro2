@@ -6,7 +6,6 @@ from bsddb3 import db
 def termSearch(keyword):
     #open the data bases we will use
     # working lists
-    outputList = []
     idList = []
 
     # index 0 is reserved for the keyword
@@ -26,14 +25,8 @@ def termSearch(keyword):
             if iter[0] == keyword[0]:
                 idList.append(iter[1])
             iter = tcur.next_dup()
-        for id in idList:
-            ad = acur.get(id, db.DB_SET)
-            adid = ad[0].decode()
-            descr = ad[1].decode()
-            outputList.append([adid,descr])
         termsBase.close()
-        adBase.close()
-        return outputList
+        return idList
     
     elif len(keyword) == 2:
         termsBase = db.DB()
@@ -51,15 +44,8 @@ def termSearch(keyword):
             if bitKeyword in iter[0]:
                 idList.append(iter[1])
             iter = tcur.next()
-        for id in idList:
-            ad = acur.get(id, db.DB_SET)
-            adid = ad[0].decode()
-            descr = ad[1].decode()
-            outputList.append([adid,descr])
         termsBase.close()
-        adBase.close()
-        return outputList ####
+        return idList
     else:
         termBase.close()
-        adBase.close()
-        return outputList
+        return idList

@@ -1,5 +1,6 @@
 import re
 import xml.etree.ElementTree as ET
+import queries as q
 outputBrief = True
 
 def mainMenu():
@@ -30,8 +31,9 @@ def mainMenu():
         exit()
     
     elif res:
-        parser(inputParser(res))   
-
+        results = q.userQueries(parser(inputParser(res)))
+        for ad in results:
+            queryPrinter(ad)
     else:
         print('\nInvalid Input')
         mainMenu()
@@ -92,14 +94,10 @@ def parser(data):
         else:
             queries.append([query])
 
-    print(queries)
+    return queries
 
 def queryPrinter(query):
     global outputBrief
-    
-    #TODO REMOVE
-    query = ['1304786670', '<ad><aid>1304786670</aid><date>2018/11/07</date><loc>Calgary</loc><cat>cam5era-camcorder-lens</cat><ti>Nikon 500 mm F4 VR</ti><desc>I have owned this Nikon lens for about 2 years and purchased it new in Calgary. The lens is extremely sharp, and fast focusing. It is a wildlife or bird photographers dream lens. I am selling it</desc><price>8500</price></ad>']
-    
     adQuery = ET.fromstring(query[1])
 
     if outputBrief:
