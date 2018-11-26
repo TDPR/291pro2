@@ -21,7 +21,7 @@ for name in filenames:
     os.rename('temp.txt', name)
 
 # now using db_load for each file, assumes that Berkely db is installed
-sp.call(['db_load','-f','terms.txt','-T','-t','btree','terms.idx'])
-sp.call(['db_load','-f','pdates.txt','-T','-t','btree','pdates.idx'])
-sp.call(['db_load','-f','prices.txt','-T','-t','btree','prices.idx'])
+sp.call(['db_load','-f','-c','duplicates=1','terms.txt','-T','-t','btree','terms.idx'])
+sp.call(['db_load','-f','-c','duplicates=1','pdates.txt','-T','-t','btree','pdates.idx'])
+sp.call(['db_load','-f','-c','duplicates=1','prices.txt','-T','-t','btree','prices.idx'])
 sp.call(['db_load','-f','ads.txt','-T','-t','hash','ads.idx'])
