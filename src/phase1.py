@@ -13,7 +13,7 @@ for line in fileData:
         
         #terms parsing
         #splits all words that are allowed and removes unneeded characters
-        terms = lineData[4].text + ' ' +  lineData[5].text
+        terms = (lineData[4].text or '') + ' ' +  (lineData[5].text or '')
         terms = re.findall(r"([a-zA-Z0-9-_]+)", terms)
 
         with open('terms.txt', 'a') as termsFile:
