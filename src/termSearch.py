@@ -1,5 +1,5 @@
 # takes input of a list of length 1, or length 2 if modulo
-# https://stackoverflow.com/questions/12348346/berkeley-db-partial-match
+
 import re
 from bsddb3 import db
 
