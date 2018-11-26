@@ -101,18 +101,18 @@ def queryPrinter(query):
     adQuery = ET.fromstring(query[1])
 
     if outputBrief:
-        print('\nAD ID: ' + query[0])
-        print('Title: ' + adQuery[4].text + '\n')
+        print('\nAD ID: ' + (query[0] or ''))
+        print('Title: ' + (adQuery[4].text or '') + '\n')
         
 
     elif not outputBrief:
-        print('\nAD ID: ' + query[0])
-        print('Date: ' + adQuery[1].text)
-        print('Location: ' + adQuery[2].text)
-        print('Category: ' + adQuery[3].text)
-        print('Title: ' + adQuery[4].text)
-        print('Description: ' + adQuery[5].text)
-        print('Price: ' + adQuery[6].text + '\n')
+        print('\nAD ID: ' + (query[0] or ''))
+        print('Date: ' + (adQuery[1].text or ''))
+        print('Location: ' + (adQuery[2].text or ''))
+        print('Category: ' + (adQuery[3].text or ''))
+        print('Title: ' + (adQuery[4].text or ''))
+        print('Description: ' + (adQuery[5].text or ''))
+        print('Price: ' + (adQuery[6].text or '') + '\n')
 
     else:
         print('\nSomething Went Wrong')
