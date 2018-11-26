@@ -24,4 +24,4 @@ for name in filenames:
 sp.call(['db_load','-c','duplicates=1','-f','terms.txt','-T','-t','btree','terms.idx'])
 sp.call(['db_load','-c','duplicates=1','-f','pdates.txt','-T','-t','btree','pdates.idx'])
 sp.call(['db_load','-c','duplicates=1','-f','prices.txt','-T','-t','btree','prices.idx'])
-sp.call(['db_load','-c','duplicates=1','-f','ads.txt','-T','-t','hash','ads.idx'])
+sp.call(['db_load','-f','ads.txt','-T','-t','hash','ads.idx'])
