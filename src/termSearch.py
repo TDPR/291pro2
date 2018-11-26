@@ -1,10 +1,10 @@
 # takes input of a list of length 1, or length 2 if modulo
 import re
-
+from bsddb3 import db
 def termSearch(keyword):
     #open the data bases we will use
     termsBase = db.DB()
-    termsBase.open('terms.idx')
+    termsBase.open('terms.idx', None, db.DB_BTREE)
     tcur = termsBase.cursor()
     adBase = db.DB()
     adBase.open('ads.idx')
@@ -17,17 +17,19 @@ def termSearch(keyword):
     # index 1 is reserved for modulo, if it exists
     if len(keyword) == 1:
         keyword[0] = keyword[0].encode('utf-8') #necessary to match the db
-        iter = tcur.first()
+        iter = tcur.get(keyword[0], db.DB_SET)
         while iter:
+            print(iter)
             if iter[0] == keyword[0]:
                 idList.append(iter[1])
             iter = tcur.next()
         for id in idList:
-            ad = acur.get(id)
+            ad = acur.get(id, db.DB_SET)
             outputList.append(ad)
-        termBase.close()
+        termsBase.close()
         adBase.close()
-        return outputList
+        print(idList)
+        return print(outputList) #####
     
     elif len(keyword) == 2:
         iter = tcur.first()
@@ -40,12 +42,13 @@ def termSearch(keyword):
         for id in idList:
             ad = acur.get(id)
             outputList.append(ad)
-        termBase.close()
+        termsBase.close()
         adBase.close()
-        return outputList
+        return print(outputList) ####
     else:
         termBase.close()
         adBase.close()
         return outputList
 
-            
+inp = ['camera']
+termSearch(inp)
