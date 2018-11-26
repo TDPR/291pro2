@@ -29,7 +29,7 @@ def rangeSearch(query):
                 itr = pdatesCur.next()
             pdatesDB.close()
             return adID
-                   
+
         if operator == '>':
             itr = pdatesCur.get(value.encode('utf-8'), db.DB_SET)
             #goes through any duplicates and appends them to the list
@@ -41,25 +41,32 @@ def rangeSearch(query):
             pdatesDB.close()
             return adID
 
-        elif operator == '<=' or operator == '=<':
+        if operator == '<=' or operator == '=<':
             itr = pdatesCur.get(value.encode('utf-8'), db.DB_SET)
             #goes through any duplicates and appends them to the list
+            if itr[0].decode('utf-8') == value:
+                while(itr):
+                    records = itr[1].decode('utf-8').split(',')
+                    adID.append(records[0].encode('utf-8'))
+                    itr = pdatesCur.next_dup()
+            itr = pdatesCur.get(value.encode('utf-8'), db.DB_SET_RANGE)
+            itr = pdatesCur.prev()
             while(itr):
                 if itr[0].decode('utf-8') == value or itr[0].decode('utf-8') < value:
                     records = itr[1].decode('utf-8').split(',')
                     adID.append(records[0].encode('utf-8'))
-                itr = pdatesCur.next()
+                itr = pdatesCur.prev()
             pdatesDB.close()
             return adID
 
-        elif operator == '<':
+        if operator == '<':
             itr = pdatesCur.get(value.encode('utf-8'), db.DB_SET)
             #goes through any duplicates and appends them to the list
             while(itr):
                 if itr[0].decode('utf-8') < value:
                     records = itr[1].decode('utf-8').split(',')
                     adID.append(records[0].encode('utf-8'))
-                itr = pdatesCur.next()
+                itr = pdatesCur.prev()
             pdatesDB.close()
             return adID
 
@@ -95,7 +102,7 @@ def rangeSearch(query):
             priceDB.close()
             return adID
 
-        elif operator == '<=' or operator == '=<':
+        if operator == '<=' or operator == '=<':
             itr = priceCur.get(value.encode('utf-8'), db.DB_SET_RANGE)
             #goes through any duplicates and appends them to the list
             if itr[0] == value.encode('utf-8'):
@@ -104,7 +111,7 @@ def rangeSearch(query):
                     adID.append(records[0].encode('utf-8'))
                     itr = priceCur.next_dup()
             itr = priceCur.get(value.encode('utf-8'), db.DB_SET_RANGE)
-            itr = priceCur.prev()    
+            itr = priceCur.prev()
             while(itr):
                 if itr[0].decode('utf-8') == value or itr[0].decode('utf-8') < value:
                     records = itr[1].decode('utf-8').split(',')
@@ -113,7 +120,7 @@ def rangeSearch(query):
             priceDB.close()
             return adID
 
-        elif operator == '<':
+        if operator == '<':
             itr = priceCur.get(value.encode('utf-8'), db.DB_SET_RANGE)
             #goes through any duplicates and appends them to the list
             itr = priceCur.prev()  
