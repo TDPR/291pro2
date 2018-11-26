@@ -14,10 +14,7 @@ for name in filenames:
     fo = open(name,'r')
     for line in fo:
         sline = line.split(':')
-        if name == 'prices.txt':
-            temp.write(str(int(sline[0]))+'\n')
-        else:
-            temp.write(sline[0]+'\n')
+        temp.write(sline[0]+'\n')
         temp.write(sline[1])
     fo.close()
     temp.close()
