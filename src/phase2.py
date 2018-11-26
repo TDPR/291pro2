@@ -14,15 +14,17 @@ for name in filenames:
     fo = open(name,'r')
     for line in fo:
         sline = line.split(':')
-        temp.write(sline[0]+'\n')
+        if name == 'prices.txt':
+            temp.write(str(int(sline[0]))+'\n')
+        else:
+            temp.write(sline[0]+'\n')
         temp.write(sline[1])
     fo.close()
     temp.close()
-    #Tname = 'T'+ name
     os.rename('temp.txt', name)
 
 # now using db_load for each file, assumes that Berkely db is installed
-sp.call(['db_load','-f','terms.txt','-T','-t','btree','terms.idx'])
-sp.call(['db_load','-f','pdates.txt','-T','-t','btree','pdates.idx'])
-sp.call(['db_load','-f','prices.txt','-T','-t','btree','prices.idx'])
+sp.call(['db_load','-c','duplicates=1','-f','terms.txt','-T','-t','btree','terms.idx'])
+sp.call(['db_load','-c','duplicates=1','-f','pdates.txt','-T','-t','btree','pdates.idx'])
+sp.call(['db_load','-c','duplicates=1','-f','prices.txt','-T','-t','btree','prices.idx'])
 sp.call(['db_load','-f','ads.txt','-T','-t','hash','ads.idx'])
