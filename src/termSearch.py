@@ -19,11 +19,10 @@ def termSearch(keyword):
         adBase = db.DB()
         adBase.open('ads.idx', None, db.DB_HASH)
         acur = adBase.cursor()
-        keyword[0] = keyword[0].encode('utf-8') #necessary to match the db
+        keyword[0] = keyword[0].lower().encode('utf-8') #necessary to match the db
 
         iter = tcur.get(keyword[0], db.DB_SET)
         while iter:
-            print(iter)
             if iter[0] == keyword[0]:
                 idList.append(iter[1])
             iter = tcur.next_dup()
