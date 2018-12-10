@@ -8,17 +8,27 @@ sp.call(['sort','-u','prices.txt','-o','prices.txt'])
 sp.call(['sort','-u','ads.txt','-o','ads.txt'])
 
 #setting up each file for db_load, such that / are gone, key and data alternate lines
-filenames = ['terms.txt', 'pdates.txt','prices.txt','ads.txt']
+filenames = ['pdates.txt','prices.txt','ads.txt']
 for name in filenames:
     temp = open('temp.txt','w+')
     fo = open(name,'r')
     for line in fo:
-        sline = line.split(':')
+        sline = line.split(':',1)
         temp.write(sline[0]+'\n')
         temp.write(sline[1])
     fo.close()
     temp.close()
     os.rename('temp.txt', name)
+
+temp = open('temp.txt','w+')
+fo = open('terms.txt','r')
+for line in fo:
+    sline = line.split(':',1)
+    temp.write(sline[1])
+    temp.write(sline[0]+'\n')
+fo.close()
+temp.close()
+os.rename('temp.txt', 'terms.txt')
 
 # now using db_load for each file, assumes that Berkely db is installed
 sp.call(['db_load','-c','duplicates=1','-f','terms.txt','-T','-t','btree','terms.idx'])
